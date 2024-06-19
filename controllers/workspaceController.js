@@ -84,7 +84,7 @@ const deleteWorkspace = async (req, res) => {
 		if (!workspace) {
 			return res.status(400).json({
 				status: 'error',
-				errors: [{ message: 'Ошибка удаление рабочего пространства' }]
+				message: 'Ошибка удаление рабочего пространства' 
 			});
 		}
 
@@ -122,7 +122,7 @@ const updateWorkspace = async (req, res) => {
 		if (!workspace) {
 			return res.status(400).json({
 				status: 'error',
-				errors: [{ message: 'Рабочее пространство не найдено' }]
+				message: 'Рабочее пространство не найдено' 
 			});
 		}
 

@@ -69,7 +69,7 @@ const deleteWorkspaceMember = async (req, res) => {
 		if (id === user_id) {
 			return res.status(400).json({
 				status: 'error',
-				errors: [{ message: 'Нельзя удалить себя' }]
+				message: 'Нельзя удалить себя' 
 			});
 		}
 
@@ -84,7 +84,7 @@ const deleteWorkspaceMember = async (req, res) => {
 		if (!workspaceAdmin) {
 			return res.status(401).json({
 				status: 'error',
-				errors: [{ message: 'У вас нет прав на выполнение данного действия' }]
+				message: 'У вас нет прав на выполнение данного действия' 
 			});
 		}
 

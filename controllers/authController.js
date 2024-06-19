@@ -22,17 +22,17 @@ const register = async (req, res) => {
 		if (!password) {
 			return res.status(400).json({
 				status: 'error',
-				errors: [{ message: 'Укажите пароль' }]
+				message: 'Укажите пароль'
 			})
 		} else if (password.length < 8 || password.length > 254) {
 			return res.status(400).json({
 				status: 'error',
-				errors: [{ message: 'Пароль должен содержать от 8 до 254 символов' }]
+				message: 'Пароль должен содержать от 8 до 254 символов' 
 			})
 		} else if (!/^[a-zA-Z0-9_!@#$%^&]*$/.test(password)) {
 			return res.status(400).json({
 				status: 'error',
-				errors: [{ message: 'Пароль может содержать латинские буквы, цифры и специальные символы' }]
+				message: 'Пароль может содержать латинские буквы, цифры и специальные символы'
 			})
 		}
 
@@ -43,7 +43,7 @@ const register = async (req, res) => {
 		if (user) {
 			return res.status(400).json({
 				status: 'error',
-				errors: [{ message: 'Имя пользователя уже занято' }]
+				message: 'Имя пользователя уже занято' 
 			})
 		}
 
@@ -86,17 +86,17 @@ const login = async (req, res) => {
 		if (!password) {
 			return res.status(400).json({
 				status: 'error',
-				errors: [{ message: 'Укажите пароль' }]
+				message: 'Укажите пароль' 
 			})
 		} else if (password.length < 8 || password.length > 254) {
 			return res.status(400).json({
 				status: 'error',
-				errors: [{ message: 'Пароль должен содержать от 8 до 254 символов' }]
+				message: 'Пароль должен содержать от 8 до 254 символов' 
 			})
 		} else if (!/^[a-zA-Z0-9_!@#$%^&]*$/.test(password)) {
 			return res.status(400).json({
 				status: 'error',
-				errors: [{ message: 'Пароль может содержать латинские буквы, цифры и специальные символы' }]
+				message: 'Пароль может содержать латинские буквы, цифры и специальные символы' 
 			})
 		}
 
@@ -105,7 +105,7 @@ const login = async (req, res) => {
 		if (!user) {
 			return res.status(401).json({
 				status: 'error',
-				errors: [{ message: 'Неверные данные авторизации' }]
+				message: 'Неверные данные авторизации' 
 			});
 		}
 
@@ -114,7 +114,7 @@ const login = async (req, res) => {
 		if (!isPasswordCorrect) {
 			return res.status(401).json({
 				status: 'error',
-				errors: [{ message: 'Неверные данные авторизации' }]
+				message: 'Неверные данные авторизации' 
 			});
 		}
 
