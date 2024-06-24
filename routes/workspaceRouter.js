@@ -54,6 +54,7 @@ const router = express.Router();
 router.get('/user/:user_id', workspaceController.getWorkspacesByUserId)
 
 router.post('/', authUserMiddleware, workspaceController.createWorkspace);
+router.get('/', authUserMiddleware, workspaceController.getUserWorkspaces)
 router.delete('/:workspace_id', [authUserMiddleware, isAdminWorkspaceMiddleware], workspaceController.deleteWorkspace);
 router.patch('/:workspace_id', [authUserMiddleware, isAdminWorkspaceMiddleware], workspaceController.updateWorkspace);
 router.get('/:workspace_id', [authUserMiddleware, isMemberWorkspaceMiddleware], workspaceController.getWorkspace);

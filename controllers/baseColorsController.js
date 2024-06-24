@@ -8,11 +8,33 @@ const getBaseColorsById = async (req, res) => {
 
 		const baseColors = await BaseColors.findOne({ where: { id } });
 
-		return res.status(200).json(baseColors);
+		return res.status(200).json({
+			status: 'success',
+			data: baseColors,
+		});
 	} catch (err) {
 		return res.status(500);
 	}
 };
+
+const getBaseColors = async (req, res) => {
+	try {
+		const { id } = req;
+
+		const baseColor = await BaseColors.findAll({
+			// where: {
+			// 	user_id: id
+			// }
+		})
+
+		return res.status(200).json({
+			status: 'success',
+			data: baseColor,
+		})
+	} catch (err) {
+		return res.status(500)
+	}
+}
 
 const createBaseColors = async (req, res) => {
 	try {
@@ -64,19 +86,22 @@ const createBaseColors = async (req, res) => {
 
 const getBaseColorsByUser = async (req, res) => {
 	try {
+		console.log('\n\n\n\n\n\ 5557')
 		const { id } = req;
+		// conosle.log('id', id7
 
-		const themes = await BaseColors.findAll({
+		const baseColors = await User.findOne({
+			where: {
+				id,
+			},
 			include: [{
-				model: User,
-				where: { id: id }
+				model: BaseColors,
 			}],
-			attributes: ['id', 'name']
 		});
 
 		return res.status(200).json({
 			status: 'success',
-			data: themes
+			data: baseColors.baseColor
 		});
 	} catch (err) {
 		if (err.name === 'SequelizeValidationError') {
@@ -159,6 +184,7 @@ const deleteBaseColors = async (req, res) => {
 
 module.exports = {
 	getBaseColorsById,
+	getBaseColors,
 	createBaseColors,
 	getBaseColorsByUser,
 	installBaseColors,

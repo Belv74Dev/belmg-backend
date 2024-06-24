@@ -9,34 +9,38 @@ const createTask = async (req, res) => {
 		const {
 			name,
 			status,
-			tag,
-			member,
+			tag_id,
+			user_id,
 			date_start,
 			time_start,
 			date_end,
 			time_end,
 			description,
-			columnId,
+			column_id,
 		} = req.body;
 
+		console.log('\n\n\n\n\ 155')
+
 		const column = await Column.findOne({
-			where: { id: columnId },
+			where: { id: column_id },
 			include: {
 				model: Task
 			}
 		});
 
-		console.log('data tag member', tag, member, description)
+		console.log(column)
+		console.log('\n\n\n\n\ 156')
+		console.log('data tag member', description, status, tag_id)
 
 		const task = await Task.create({
 			name,
 			position: column.tasks.length + 1,
-			tag_id: tag,
-			user_id: member,
+			tag_id,
+			user_id,
 			status,
-			date_start: new Date(date_start),
+			date_start: new Date(date_start && date_start.split('.').reverse().join('.')),
 			time_start: new Date(time_start),
-			date_end: new Date(date_end),
+			date_end: new Date(date_end && date_end.split('.').reverse().join('.')),
 			time_end: new Date(time_end),
 			description: JSON.stringify(description),
 			column_id: column.id,
@@ -44,7 +48,7 @@ const createTask = async (req, res) => {
 
 		return res.status(201).json({
 			status: 'success',
-			// data: task
+			data: task
 		});
 	} catch (err) {
 		console.log(`Error1`, err)

@@ -44,9 +44,9 @@ const router = Router();
  *     tags: [Пользователь]
  */
 
-
-router.patch('/', authUserMiddleware, userController.updateUser);
+// router.get('/theme', authUserMiddleware, userController.getUserTheme);
 router.get('/', authUserMiddleware, userController.getUserData);
+router.patch('/', authUserMiddleware, userController.updateUser);
 router.patch('/lastWorkspace', authUserMiddleware, userController.getWorkspaceByUser);
 
 module.exports = router;

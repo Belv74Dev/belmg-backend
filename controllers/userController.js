@@ -6,6 +6,8 @@ const BaseColors = require('../models/baseColors');
 const Workspace = require('../models/workspace');
 const WorkspaceMember = require('../models/workspaceMember');
 
+// const getUserTheme = async
+
 const updateUser = async (req, res) => {
 	try {
 		const { id } = req;

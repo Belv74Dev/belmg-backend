@@ -4,7 +4,7 @@ const options = {
 	definition: {
 		openapi: "3.0.0",
 		info: {
-			title: "Турбо Трекинг API",
+			title: "BELMG API",
 			version: "0.0.1",
 		},
 	},

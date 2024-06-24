@@ -63,23 +63,28 @@ const getWorkspaceMembers = async (req, res) => {
 
 const deleteWorkspaceMember = async (req, res) => {
 	try {
+		console.log('\n\n\n\n\n991')
 		const { id } = req;
 		const { workspace_id, user_id } = req.params;
-
+		console.log('\n\n\n\n\n992')
 		if (id === user_id) {
 			return res.status(400).json({
 				status: 'error',
 				errors: [{ message: 'Нельзя удалить себя' }]
 			});
 		}
+		console.log('\n\n\n\n\n993')
 
 		const workspaceAdmin = await WorkspaceMember.findOne({
 			where: {
 				user_id: id,
-				workspaceId: workspace_id,
+				workspace_id: workspace_id,
 				role: 'admin'
 			}
 		});
+
+
+		console.log('\n\n\n\n\n994')
 
 		if (!workspaceAdmin) {
 			return res.status(401).json({
@@ -88,9 +93,13 @@ const deleteWorkspaceMember = async (req, res) => {
 			});
 		}
 
+		console.log('\n\n\n\n\n995')
+
 		const workspaceMembers = await WorkspaceMember.findOne({
 			where: { workspace_id, user_id }
 		});
+
+		console.log('\n\n\n\n\n991')
 
 		workspaceMembers.destroy();
 

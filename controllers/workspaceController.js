@@ -1,6 +1,8 @@
 const User = require('../models/user');
 const Workspace = require('../models/workspace');
 const WorkspaceMember = require('../models/workspaceMember');
+const BaseColors = require("../models/baseColors");
+const {Op} = require("sequelize");
 
 const getWorkspacesByUserId = async (req, res) => {
 	try {
@@ -11,8 +13,6 @@ const getWorkspacesByUserId = async (req, res) => {
 				owner_id: id,
 			}
 		})
-
-
 
 	} catch (err) {
 		if (err.name === 'SequelizeValidationError') {
@@ -30,11 +30,53 @@ const getWorkspacesByUserId = async (req, res) => {
 	}
 }
 
+const getUserWorkspaces = async (req, res) => {
+	try {
+		const { id } = req;
+
+		const user = await User.findOne({
+			where: { id },
+			include: [{
+				model: Workspace,
+				// through: WorkspaceMember,
+				through: {
+					model: WorkspaceMember,
+					where: { role: {[Op.ne]: 'invited'}}
+				},
+				as: 'workspaces',
+			}],
+			attributes: { exclude: ['password', 'role'] }
+		});
+
+		console.log(user)
+
+		const { workspaces } = user;
+		console.log('\n\n\n\n\n\n 999', workspaces)
+
+		return res.status(200).json({
+			status: 'success',
+			data: workspaces,
+		});
+	} catch (err) {
+		if (err.name === 'SequelizeValidationError') {
+			const errors = err.errors.map((e) => ({ field: e.path, message: e.message }));
+			return res.status(400).json({
+				status: 'error',
+				errors
+			});
+		}
+
+		res.status(500).json({
+			status: 'error',
+			message: 'Ошибка сервера'
+		});
+	}
+};
+
 const createWorkspace = async (req, res) => {
 	try {
 		const { id } = req;
 		const { name } = req.body;
-
 		const workspace = await Workspace.create({ name, owner_id: id });
 
 		const user = await User.findOne({
@@ -175,6 +217,7 @@ const getWorkspace = async (req, res) => {
 
 module.exports = {
 	getWorkspacesByUserId,
+	getUserWorkspaces,
 	createWorkspace,
 	deleteWorkspace,
 	updateWorkspace,

@@ -65,10 +65,7 @@ const getBoard = async (req, res) => {
 
 		return res.status(200).json({
 			status: 'success',
-			data: {
-				board: { id: board.id, name: board.name },
-				boardData: board.columns
-			}
+			data: board
 		});
 	} catch (err) {
 		console.log(err)

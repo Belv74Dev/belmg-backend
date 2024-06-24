@@ -53,11 +53,10 @@ const router = Router();
  *     tags: [Темизация]
  */
 
-
-
-router.get('/:id', baseColorsController.getBaseColorsById)
-router.post('/', authUserMiddleware, baseColorsController.createBaseColors);
 router.get('/', authUserMiddleware, baseColorsController.getBaseColorsByUser);
+router.get('/all', authUserMiddleware, baseColorsController.getBaseColors);
+router.get('/:id', baseColorsController.getBaseColorsById);
+router.post('/', authUserMiddleware, baseColorsController.createBaseColors);
 router.delete('/:theme_id', authUserMiddleware, baseColorsController.deleteBaseColors)
 router.patch('/:theme_id', authUserMiddleware, baseColorsController.installBaseColors)
 
